@@ -1,7 +1,9 @@
 # Options
 # Added TARGET_KERNEL_SOURCE
 # Added TARGET_KERNEL_LLCON
+# Added TARGET_PREBUILT_TESTKERNEL
 # Added TW_DEVICE_SPECIFIC_VERSION
+
 -include device/motorola/falcon/BoardConfigOptions.mk
 
 # Bootloader
@@ -33,7 +35,11 @@ ifdef TARGET_KERNEL_SOURCE
 endif
 # Kernel Prebuilt
 ifndef TARGET_KERNEL_SOURCE
+ifndef TARGET_PREBUILT_TESTKERNEL
     TARGET_PREBUILT_KERNEL := device/motorola/falcon/zImage-dtb
+else
+    TARGET_PREBUILT_KERNEL := $(TARGET_PREBUILT_TESTKERNEL)
+endif
     TARGET_CUSTOM_KERNEL_HEADERS := device/motorola/falcon/include
 endif
 # Kernel Low Level Console
