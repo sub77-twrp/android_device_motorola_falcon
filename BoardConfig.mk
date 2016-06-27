@@ -3,8 +3,9 @@
 # Added TARGET_KERNEL_LLCON
 # Added TARGET_KERNEL_TESTCONFIG
 # Added TARGET_PREBUILT_TESTKERNEL
-# Added TW_DEVICE_SPECIFIC_VERSION
 # Added COMPRESS_RAMDISK (xz,lzma)
+# Added TW_DEVICE_SPECIFIC_VERSION
+# Added TW_CUSTOM_TESTTHEME
 
 -include device/motorola/falcon/BoardConfigOptions.mk
 
@@ -79,4 +80,8 @@ TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_NTFS_3G := true
 TW_NO_USB_STORAGE := true
 TW_TARGET_USES_QCOM_BSP := true
-TW_THEME := portrait_hdpi
+ifndef TW_CUSTOM_TESTTHEME
+    TW_THEME := portrait_hdpi
+else
+    TW_CUSTOM_THEME := $(TW_CUSTOM_TESTTHEME)
+endif
