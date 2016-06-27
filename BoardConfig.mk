@@ -1,3 +1,6 @@
+# OPTIONS
+#TARGET_KERNEL_SOURCE := kernel/motorola/msm8226 # Comment Out for using prebuilt kernel, else check Kernel Inline Settings
+
 # Bootloader
 TARGET_NO_BOOTLOADER := true
 TARGET_BOOTLOADER_BOARD_NAME := MSM8226
@@ -15,13 +18,22 @@ TARGET_CPU_SMP := true
 TARGET_CPU_VARIANT := krait
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
-# Kernel Prebuilt
-TARGET_PREBUILT_KERNEL := device/motorola/falcon/zImage-dtb
-TARGET_CUSTOM_KERNEL_HEADERS := device/motorola/falcon/include
+# Kernel Common
 BOARD_CUSTOM_BOOTIMG_MK := device/motorola/falcon/mkbootimg.mk
 BOARD_KERNEL_CMDLINE := androidboot.bootdevice=msm_sdcc.1 androidboot.hardware=qcom vmalloc=400M androidboot.selinux=permissive
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000
+# Kernel Inline
+ifdef TARGET_KERNEL_SOURCE
+    TARGET_KERNEL_CONFIG := falcon_defconfig
+    BOARD_KERNEL_CMDLINE += androidboot.llcon=2,100,0,0x00,24,1280,720,720,8,0
+    BOARD_KERNEL_IMAGE_NAME := zImage-dtb
+endif
+# Kernel Prebuilt
+ifndef TARGET_KERNEL_SOURCE
+    TARGET_PREBUILT_KERNEL := device/motorola/falcon/zImage-dtb
+    TARGET_CUSTOM_KERNEL_HEADERS := device/motorola/falcon/include
+endif
 
 # Init
 TARGET_INCREASES_COLDBOOT_TIMEOUT := true
