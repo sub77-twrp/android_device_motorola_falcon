@@ -1,5 +1,6 @@
 # OPTIONS
 #TARGET_KERNEL_SOURCE := kernel/motorola/msm8226 # Comment Out for using prebuilt kernel, else check Kernel Inline Settings
+#TW_DEVICE_SPECIFIC_VERSION := 3.0.2-0
 
 # Bootloader
 TARGET_NO_BOOTLOADER := true
