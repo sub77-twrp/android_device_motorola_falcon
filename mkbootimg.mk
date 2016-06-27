@@ -14,13 +14,19 @@
 # limitations under the License.
 #
 
-LZMA_BIN := $(shell which lzma)
+ifeq ($(COMPRESS_RAMDISK),xz)
+COMPRESS_COMMAND := xz --check=crc32 --lzma2=dict=2MiB
+RAMDISK_COMPRESSION := XZ
+else
+COMPRESS_COMMAND := $(shell which lzma)
+RAMDISK_COMPRESSION := LZMA
+endif
 
 $(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) \
 		$(recovery_uncompressed_ramdisk) \
 		$(recovery_kernel)
-	@echo -e ${PRT_IMG}"----- Making compressed recovery ramdisk ------"${CL_RST}
-	$(hide) $(LZMA_BIN) < $(recovery_uncompressed_ramdisk) > $(recovery_ramdisk)
+	@echo -e ${PRT_IMG}"----- Making $(RAMDISK_COMPRESSION) compressed recovery ramdisk ------"${CL_RST}
+	$(hide) $(COMPRESS_COMMAND) < $(recovery_uncompressed_ramdisk) > $(recovery_ramdisk)
 	@echo -e ${PRT_IMG}"----- Making recovery image ------"${CL_RST}
 	$(hide) $(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) $(BOARD_MKBOOTIMG_ARGS) --output $@
 	$(hide) $(call assert-max-image-size,$@,$(BOARD_RECOVERYIMAGE_PARTITION_SIZE))

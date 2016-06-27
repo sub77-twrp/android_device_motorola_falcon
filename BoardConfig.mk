@@ -4,6 +4,7 @@
 # Added TARGET_KERNEL_TESTCONFIG
 # Added TARGET_PREBUILT_TESTKERNEL
 # Added TW_DEVICE_SPECIFIC_VERSION
+# Added COMPRESS_RAMDISK (xz,lzma)
 
 -include device/motorola/falcon/BoardConfigOptions.mk
 
