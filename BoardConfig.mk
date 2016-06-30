@@ -6,6 +6,7 @@
 # Added COMPRESS_RAMDISK (xz,lzma)
 # Added TW_DEVICE_SPECIFIC_VERSION
 # Added TW_CUSTOM_TESTTHEME
+# Added TARGET_RECOVERY_IS_MULTIROM
 
 -include device/motorola/falcon/BoardConfigOptions.mk
 
@@ -84,4 +85,9 @@ ifndef TW_CUSTOM_TESTTHEME
     TW_THEME := portrait_hdpi
 else
     TW_CUSTOM_THEME := $(TW_CUSTOM_TESTTHEME)
+endif
+
+# MultiROM
+ifeq ($(TARGET_RECOVERY_IS_MULTIROM),true)
+       -include device/motorola/falcon/multirom/BoardConfigMultirom.mk
 endif
