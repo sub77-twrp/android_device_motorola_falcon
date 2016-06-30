@@ -4,3 +4,9 @@ ifeq ($(MR_REC_VERSION),)
 MR_REC_VERSION := $(shell date -u +%Y%m%d)-01
 endif
 BOARD_MKBOOTIMG_ARGS += --board mrom$(MR_REC_VERSION)
+
+ifndef MR_CUSTOM_THEME
+    TW_THEME := portrait_hdpi
+else
+    TW_CUSTOM_THEME := $(MR_CUSTOM_THEME)
+endif

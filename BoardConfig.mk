@@ -8,6 +8,7 @@
 # Added TW_CUSTOM_TESTTHEME
 # Added TARGET_RECOVERY_IS_MULTIROM
 # Added MR_DEVICE_SPECIFIC_VERSION
+# Added MR_CUSTOM_THEME
 
 -include device/motorola/falcon/BoardConfigOptions.mk
 
@@ -82,10 +83,12 @@ TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_NTFS_3G := true
 TW_NO_USB_STORAGE := true
 TW_TARGET_USES_QCOM_BSP := true
+ifneq ($(TARGET_RECOVERY_IS_MULTIROM),true)
 ifndef TW_CUSTOM_TESTTHEME
     TW_THEME := portrait_hdpi
 else
     TW_CUSTOM_THEME := $(TW_CUSTOM_TESTTHEME)
+endif
 endif
 
 # MultiROM
