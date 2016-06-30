@@ -7,6 +7,7 @@
 # Added TW_DEVICE_SPECIFIC_VERSION
 # Added TW_CUSTOM_TESTTHEME
 # Added TARGET_RECOVERY_IS_MULTIROM
+# Added MR_DEVICE_SPECIFIC_VERSION
 
 -include device/motorola/falcon/BoardConfigOptions.mk
 
