@@ -10,3 +10,5 @@ ifndef MR_CUSTOM_THEME
 else
     TW_CUSTOM_THEME := $(MR_CUSTOM_THEME)
 endif
+
+MR_INFOS := device/motorola/falcon/multirom/infos
