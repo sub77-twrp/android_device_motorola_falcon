@@ -22,3 +22,9 @@ MR_USE_QCOM_OVERLAY := true
 MR_PIXEL_FORMAT := "RGBX_8888"
 MR_QCOM_OVERLAY_HEADER := device/motorola/falcon/multirom/overlay/mr_qcom_overlay.h
 MR_QCOM_OVERLAY_CUSTOM_PIXEL_FORMAT := MDP_RGBX_8888
+
+MR_INPUT_TYPE := type_b
+MR_DPI := hdpi
+MR_DPI_FONT := 160
+MR_KEXEC_DTB := true
+MR_CONTINUOUS_FB_UPDATE := false
