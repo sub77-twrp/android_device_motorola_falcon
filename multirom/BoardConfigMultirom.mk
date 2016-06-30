@@ -33,3 +33,5 @@ MR_ALLOW_NKK71_NOKEXEC_WORKAROUND := true
 MR_DEV_BLOCK_BOOTDEVICE := true
 
 MR_KEXEC_MEM_MIN := 0x05000000
+
+MR_DEVICE_VARIANTS := xt1031 xt1032 xt1033 xt1034 falcon_umts falcon_umtsds falcon_cdma falcon_retuaws falcon falcon_gpe
