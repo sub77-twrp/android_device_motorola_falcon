@@ -15,3 +15,4 @@ MR_INFOS := device/motorola/falcon/multirom/infos
 MR_DEVICE_HOOKS := device/motorola/falcon/multirom/mr_hooks.c
 MR_DEVICE_HOOKS_VER := 4
 MR_FSTAB := device/motorola/falcon/multirom/mrom.fstab
+MR_INIT_DEVICES := device/motorola/falcon/multirom/mr_init_devices.c
