@@ -9,6 +9,10 @@ on init
     symlink /firmware/image/keymaster.b03 /vendor/firmware/keymaster/keymaster.b03
     symlink /firmware/image/keymaster.mdt /vendor/firmware/keymaster/keymaster.mdt
 
+    # Nano
+    export TERMINFO /etc/terminfo
+    export TERM vt220
+    
     # Detect GPE and swap fstab
     wait /dev/block/platform/msm_sdcc.1/by-name/userdata
     exec /sbin/detect-gpe
