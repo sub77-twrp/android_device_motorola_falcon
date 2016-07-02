@@ -411,6 +411,22 @@
 			</button>
 
 			<button style="main_button_half_height">
+				<condition var1="tw_multirom_is_android" var2="1"/>
+				<placement x="%center_x%" y="%row17a_y%"/>
+				<text>Restore WIFI</text>
+				<actions>
+					<action function="set">tw_back=multirom_manage</action>
+					<action function="set">tw_action=multirom_restorewifi</action>
+					<action function="set">tw_text1=Restore wifi on "%tw_multirom_rom_name%"?</action>
+					<action function="set">tw_action_text1=Running restore</action>
+					<action function="set">tw_complete_text1=Wifi restored</action>
+					<action function="set">tw_slider_text=Swipe to Confirm</action>
+					<action function="set">tw_show_reboot=0</action>
+					<action function="page">confirm_action</action>
+				</actions>
+			</button>
+
+			<button style="main_button_half_height">
 				<condition var1="tw_multirom_is_ubuntu" var2="1"/>
 				<placement x="%center_x%" y="%row17a_y%"/>
 				<text>Re-patch init</text>
