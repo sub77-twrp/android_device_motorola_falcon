@@ -1,48 +1,114 @@
 #!/sbin/sh
 #
-check(){
-if [ -f /persist/wpa_supplicant_conf ]; then
-	test1=$(grep ssid /data/misc/wifi/wpa_supplicant.conf)
-	test2=$(grep ssid /persist/wpa_supplicant_conf)
-fi;
-if [ "$test1" = "$test2" ]; then
-	exit 1;
-fi;
-}
 
-mountrw(){
-	mount -o rw,remount /persist
-	mount -o rw,remount /system
-}
+checkpersist(){
+	mountpersist
+	if [ ! -f /persist/wpa_supplicant_conf ]; then
+		backup
+	fi;
 
-mountro(){
-	mount -o ro,remount /persist
-	mount -o ro,remount /system
+	if [ -f /persist/wpa_supplicant_conf ]; then
+		test1=$(grep ssid /data/misc/wifi/wpa_supplicant.conf)
+		test2=$(grep ssid /persist/wpa_supplicant_conf)
+		echo "comparing data"
+		echo $test1
+		echo $test2
+		if [ "$test1" = "$test2" ]; then
+			echo "no backup needed"
+			umountpersist
+			exit;
+		else
+			backup
+		fi;
+	fi;
+	umountpersist
 }
 
 mountsystem(){
 	mount /system
+	echo "mounting /system"
 }
 
 mountpersist(){
 	mount /persist
+	echo "mounting /persist"
 }
 
-if [ "$1" = "backup" ]; then
-	check
+umountsystem(){
+	umount /system
+	echo "unmounting /system"
+}
+
+umountpersist(){
+	umount /persist
+	echo "unmounting /persist"
+}
+
+backup(){
 	mountpersist
-	mountrw
-	mv /persist/wpa_supplicant_conf /persist/wpa_supplicant_conf.bak
 	(echo "network={" ; sed -e '1,/network=/ d' /data/misc/wifi/wpa_supplicant.conf) > /persist/wpa_supplicant_conf
-	mountro
+	echo "wpasupp backup"
+	umountpersist
+	exit 1;
+}
+
+restore(){
+	mountpersist
+	mountsystem
+	test1=$(grep ssid /system/etc/wifi/wpa_supplicant.conf)
+	test2=$(grep ssid /persist/wpa_supplicant_conf)
+	echo "comparing data"
+	echo $test
+	echo $test1
+	echo $test2
+	if [ "$test1" = "$test2" ]; then
+		echo "no restore needed"
+		umountpersist
+		umountsystem
+		exit;
+	else
+		cat /persist/wpa_supplicant_conf  >> /system/etc/wifi/wpa_supplicant.conf
+		echo "restored"
+		umountpersist
+		umountsystem
+		exit;
+	fi;
+}
+
+restoremr(){
+        mountpersist
+        mountsystem
+        test1=$(grep ssid $test)
+        test2=$(grep ssid /persist/wpa_supplicant_conf)
+        echo "comparing data"
+        echo $test
+        echo $test1
+        echo $test2
+        if [ "$test1" = "$test2" ]; then
+                echo "no restore needed"
+                umountpersist
+                umountsystem
+                exit;
+        else
+                cat /persist/wpa_supplicant_conf  >> $test
+                echo "restored"
+                umountpersist
+                umountsystem
+                exit;
+        fi;
+}
+
+
+if [ "$1" = "backup" ]; then
+	checkpersist
 fi;
 
-if [ "$1" = "restore" ]; then
-	check
-	mountsystem
-	mountrw
-	sed -e '/network=/,$ d -i ' /system/etc/wifi/wpa_supplicant.conf
-	cat /persist/wpa_supplicant_conf  >> /system/etc/wifi/wpa_supplicant.conf
-	mountro
+#if [ "$1" = "restore" ]; then
+#	restore
+#fi;
+
+if [ "$1" = "restore" ] && [ "$2" ]; then
+	test="$2"/system/etc/wifi/wpa_supplicant.conf
+        restoremr
 fi;
 
