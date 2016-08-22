@@ -22,6 +22,18 @@ COMPRESS_COMMAND := $(shell which lzma)
 RAMDISK_COMPRESSION := LZMA
 endif
 
+ifdef TW_DEVICE_SPECIFIC_VERSION
+	TWRP_VERSION := $(TW_DEVICE_SPECIFIC_VERSION)
+else
+	TWRP_VERSION := $(shell cat bootable/recovery/variables.h | grep TW_VERSION_STR | cut -d\" -f2)
+endif
+
+ifeq ($(TARGET_RECOVERY_IS_MULTIROM),true)
+	TWRP_NAME := twrpm-$(TWRP_VERSION)-$(TARGET_DEVICE)
+else
+	TWRP_NAME := twrp-$(TWRP_VERSION)-$(TARGET_DEVICE)
+endif
+
 $(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) \
 		$(recovery_uncompressed_ramdisk) \
 		$(recovery_kernel)
@@ -30,4 +42,5 @@ $(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) \
 	@echo -e ${PRT_IMG}"----- Making recovery image ------"${CL_RST}
 	$(hide) $(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) $(BOARD_MKBOOTIMG_ARGS) --output $@
 	$(hide) $(call assert-max-image-size,$@,$(BOARD_RECOVERYIMAGE_PARTITION_SIZE))
-	@echo -e ${PRT_IMG}"Made recovery image: $@"${CL_RST}
+	cd $(PRODUCT_OUT) && cp recovery.img $(TWRP_NAME).img
+	@echo -e ${PRT_IMG}"----- Made recovery image: $(PRODUCT_OUT)/$(TWRP_NAME).img --------"${CL_RST}
