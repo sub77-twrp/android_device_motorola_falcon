@@ -1458,6 +1458,15 @@ not implemented
 				</actions>
 			</button>
 
+			<listbox style="scrolllist">
+				<placement x="%center_x%" y="%row3_y%" w="%content_width%" h="%listbox_settings_mr_height%"/>
+				<fastscroll linecolor="%fileselector_linecolor%" rectcolor="%accent_color%" w="%fastscroll_w%" linew="%fastscroll_linew%" rectw="%fastscroll_rectw%" recth="%fastscroll_recth%"/>
+				<icon selected="checkbox_true" unselected="checkbox_false"/>
+				<listitem name="Restore WiFi">
+					<data variable="tw_restore_wifi"/>
+				</listitem>
+			</listbox>
+
 			<button style="radio">
 				<condition var1="tw_multirom_type" var2="3"/>
 				<placement x="%indent%" y="%row4a_y%" textplacement="6"/>
@@ -1894,12 +1903,35 @@ not implemented
 		</page>
 
 		<page name="multirom_add_start_process">
+
 			<action>
-				<condition var1="tw_multirom_type" var2="1"/>
+				<conditions>
+					<condition var1="tw_multirom_type" var2="1"/>
+					<condition var1="tw_restore_wifi" var2="0"/>
+				</conditions>
 				<actions>
 					<action function="set">tw_back=multirom_add</action>
 					<action function="set">tw_action=multirom_add_rom</action>
 					<action function="set">tw_text1=Install ROM</action>
+					<action function="set">tw_text2=%tw_filename%</action>
+					<action function="set">tw_text3=?</action>
+					<action function="set">tw_action_text1=Installing ROM...</action>
+					<action function="set">tw_complete_text1=ROM installed</action>
+					<action function="set">tw_slider_text=Swipe to Confirm</action>
+					<action function="set">tw_show_reboot=1</action>
+					<action function="page">confirm_action</action>
+				</actions>
+			</action>
+
+			<action>
+				<conditions>
+					<condition var1="tw_multirom_type" var2="1"/>
+					<condition var1="tw_restore_wifi" var2="1"/>
+				</conditions>
+				<actions>
+					<action function="set">tw_back=multirom_add</action>
+					<action function="set">tw_action=multirom_add_rom</action>
+					<action function="set">tw_text1=Install ROM | Restore Wifi</action>
 					<action function="set">tw_text2=%tw_filename%</action>
 					<action function="set">tw_text3=?</action>
 					<action function="set">tw_action_text1=Installing ROM...</action>
