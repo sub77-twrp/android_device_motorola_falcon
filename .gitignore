@@ -1,2 +1,3 @@
 BoardConfigOptions.mk
 zImage-dtb-*
+multirom/versioning
