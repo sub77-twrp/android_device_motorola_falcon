@@ -6,6 +6,5 @@
 /firmware       ext4      /dev/block/platform/msm_sdcc.1/by-name/modem       flags=display="Firmware";fsflags=ro;mounttodecrypt
 /recovery       emmc      /dev/block/platform/msm_sdcc.1/by-name/recovery    flags=backup=1
 /system         ext4      /dev/block/platform/msm_sdcc.1/by-name/system
-
-#/sdcard1        auto      /dev/block/mmcblk1p1     /dev/block/mmcblk1        flags=display="MicroSD Card";storage;wipeingui;removable
+/external_sd	auto	  /multiboot/data/media/0 							 flags=display="PRIMARY SD";storage;fsflags=bind
 /usb-otg        auto      /dev/block/sda1          /dev/block/sda            flags=display="USB OTG";storage;wipeingui;removable
