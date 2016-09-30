@@ -16,7 +16,6 @@
 
 LOCAL_PATH := $(call my-dir)
 
-PREBUILT_DTIMAGE_TARGET := $(LOCAL_PATH)/dt.img
 LZMA_RAMDISK := $(PRODUCT_OUT)/ramdisk-recovery-lzma.img
 LZMA_BIN := $(shell which lzma)
 
