@@ -5,6 +5,6 @@
 /firmware       ext4      /dev/block/platform/msm_sdcc.1/by-name/modem       flags=backup=1;display="Firmware";mounttodecrypt
 /cache          ext4      /dev/block/platform/msm_sdcc.1/by-name/cache
 /system         ext4      /dev/block/platform/msm_sdcc.1/by-name/system
-/data           f2fs      /dev/block/platform/msm_sdcc.1/by-name/userdata    flags=fsflags="inline_xattr";length=-16384
+/data           ext4      /dev/block/platform/msm_sdcc.1/by-name/userdata    flags=encryptable=/dev/block/platform/msm_sdcc.1/by-name/metadata
 /external_sd	auto	  /multiboot/data/media/0 							 flags=display="PRIMARY SD";storage;fsflags=bind
 /usb-otg        auto      /dev/block/sda1          /dev/block/sda            flags=display="USB OTG";storage;wipeingui;removable
