@@ -43,9 +43,11 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 # Flags
 TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
+COMMON_GLOBAL_CFLAGS += -DREFRESH_RATE=60 -DQCOM_HARDWARE -DNO_SECURE_DISCARD
 
 # Kernel Prebuilt
 TARGET_PREBUILT_KERNEL := device/motorola/falcon/zImage-dtb
+TARGET_CUSTOM_KERNEL_HEADERS := device/motorola/falcon/include
 BOARD_CUSTOM_BOOTIMG_MK := device/motorola/falcon/mkbootimg.mk
 BOARD_KERNEL_CMDLINE := androidboot.bootdevice=msm_sdcc.1 androidboot.hardware=qcom vmalloc=400M
 BOARD_KERNEL_CMDLINE += androidboot.llcon=2,100,0,0x00,24,1280,720,720,8,0
@@ -75,5 +77,6 @@ TW_INCLUDE_CRYPTO := true
 TW_THEME := portrait_hdpi
 TW_FLASH_FROM_STORAGE := true
 TW_MTP_DEVICE := "/dev/mtp_usb"
+TW_TARGET_USES_QCOM_BSP := true
 
 TW_DEVICE_SPECIFIC_VERSION := 3.0.2-7-efi
