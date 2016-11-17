@@ -67,3 +67,10 @@ TW_INCLUDE_NTFS_3G := true
 TW_MTP_DEVICE := "/dev/mtp_usb"
 TW_TARGET_USES_QCOM_BSP := true
 TW_THEME := portrait_hdpi
+
+# TW-Versioning
+include device/motorola/falcon/recovery/MR_REC_VERSION.mk
+
+ifeq ($(MR_REC_VERSION),)
+MR_REC_VERSION := $(shell date -u +%Y%m%d)-01
+endif
