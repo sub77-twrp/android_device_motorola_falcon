@@ -1,0 +1,4 @@
+TERMINFO=/etc/terminfo
+TERM=vt220
+resize
+nano-1-mod $1

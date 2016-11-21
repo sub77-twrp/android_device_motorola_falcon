@@ -1,5 +1,5 @@
 # TWRP Versioning
-TW_DEVICE_SPECIFIC_VERSION := 3.0.2-8
+TW_DEVICE_SPECIFIC_VERSION := 3.0.2-9
 
 # Bootloader
 TARGET_NO_BOOTLOADER := true
@@ -57,7 +57,7 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 5930598400 # 5930614784 - 16384
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64) macro
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
-TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/msm_hsusb/gadget/lun%d/file"
+#TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/msm_hsusb/gadget/lun%d/file"
 
 # TWRP
 TW_EXCLUDE_DEFAULT_USB_INIT := true
@@ -67,10 +67,12 @@ TW_INCLUDE_NTFS_3G := true
 TW_MTP_DEVICE := "/dev/mtp_usb"
 TW_TARGET_USES_QCOM_BSP := true
 TW_THEME := portrait_hdpi
+TW_INTERNAL_STORAGE_PATH := "/data/media/0"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
 
 # TW-Versioning
-include device/motorola/falcon/recovery/MR_REC_VERSION.mk
+#include device/motorola/falcon/recovery/MR_REC_VERSION.mk
 
-ifeq ($(MR_REC_VERSION),)
-MR_REC_VERSION := $(shell date -u +%Y%m%d)-01
-endif
+#ifeq ($(MR_REC_VERSION),)
+#MR_REC_VERSION := $(shell date -u +%Y%m%d)-01
+#endif
