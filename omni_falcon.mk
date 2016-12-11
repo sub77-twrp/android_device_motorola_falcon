@@ -27,7 +27,12 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 $(call inherit-product, vendor/omni/config/common.mk)
 
 PRODUCT_PACKAGES += \
-    detect-gpe
+    charger_res_images \
+    charger
+
+PRODUCT_COPY_FILES += \
+    device/motorola/falcon/recovery/root/etc/gpe-twrp.fstab:recovery/root/etc/gpe-twrp.fstab \
+    device/motorola/falcon/recovery/root/etc/twrp.fstab:recovery/root/etc/twrp.fstab
 
 PRODUCT_NAME := omni_falcon
 PRODUCT_DEVICE := falcon

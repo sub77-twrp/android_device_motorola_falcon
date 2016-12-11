@@ -1,35 +1,45 @@
+PLATFORM_PATH := device/motorola/falcon
+
+# Include path
+TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
+
 # Bootloader
-TARGET_NO_BOOTLOADER := true
 TARGET_BOOTLOADER_BOARD_NAME := MSM8226
+TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8226
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno305
+
+# Build with Clang by default
+USE_CLANG_PLATFORM_BUILD := true
 
 # Architecture
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
-TARGET_CPU_SMP := true
 TARGET_CPU_VARIANT := krait
-ARCH_ARM_HAVE_TLS_REGISTER := true
 
-# Kernel Prebuilt
-TARGET_PREBUILT_KERNEL := device/motorola/falcon/zImage-dtb
-BOARD_CUSTOM_BOOTIMG_MK := device/motorola/falcon/mkbootimg.mk
-BOARD_KERNEL_CMDLINE := androidboot.bootdevice=msm_sdcc.1 androidboot.hardware=qcom vmalloc=400M androidboot.selinux=permissive
+# Assertions
+TARGET_BOARD_INFO_FILE ?= $(PLATFORM_PATH)/board-info.txt
+
+# Kernel
+BOARD_KERNEL_BASE := 0x00000000
+BOARD_KERNEL_CMDLINE := androidboot.bootdevice=msm_sdcc.1 androidboot.hardware=qcom vmalloc=400M utags.blkdev=/dev/block/platform/msm_sdcc.1/by-name/utags
+#BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
+BOARD_CUSTOM_BOOTIMG_MK := device/motorola/falcon/mkbootimg.mk
+TARGET_KERNEL_ARCH := arm
+TARGET_KERNEL_CONFIG := falcon_defconfig
+TARGET_KERNEL_SOURCE := kernel/motorola/msm8226
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
 
 # Init
 TARGET_INCREASES_COLDBOOT_TIMEOUT := true
-
-# Recovery
-TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
-BOARD_HAS_NO_REAL_SDCARD := true
-RECOVERY_SDCARD_ON_DATA := true
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 10485760
@@ -37,14 +47,29 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 10485760
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1023410176
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 5930598400 # 5930614784 - 16384
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64) macro
-BOARD_SUPPRESS_SECURE_ERASE := true
+
+# Qualcomm support
+BOARD_USES_QCOM_HARDWARE := true
+
+# Recovery
+BOARD_NO_SECURE_DISCARD := true
+TARGET_NOT_USE_GZIP_RECOVERY_RAMDISK := true
+TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/recovery/root/fstab.qcom
+TARGET_RECOVERY_DENSITY := hdpi
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
 
 # TWRP
-TW_DEFAULT_EXTERNAL_STORAGE := true
-TW_EXCLUDE_DEFAULT_USB_INIT := true
-TW_EXCLUDE_SUPERSU := true
-TW_IGNORE_MAJOR_AXIS_0 := true
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_NTFS_3G := true
+DEVICE_RESOLUTION := 720x1280
+#TW_THEME := portrait_hdpi
+TW_TARGET_USES_QCOM_BSP := false
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBA_8888"
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TW_NO_USB_STORAGE := true
-TW_THEME := portrait_hdpi
+TW_INCLUDE_CRYPTO := false
+TW_INCLUDE_JPEG := true
+TW_EXCLUDE_SUPERSU := true
+BOARD_SUPPRESS_SECURE_ERASE := true
+RECOVERY_SDCARD_ON_DATA := true
+BOARD_HAS_NO_REAL_SDCARD := true
