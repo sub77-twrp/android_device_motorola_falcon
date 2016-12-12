@@ -1,0 +1,26 @@
+From fa13ca7d424c721610ef3b2f3aed027bcbbcaa8f Mon Sep 17 00:00:00 2001
+From: sub77 <sub77@ymail.com>
+Date: Mon, 12 Dec 2016 01:07:52 +0000
+Subject: [PATCH] dumpvar tw_version
+
+Change-Id: I1c978975bec24245c6c47a1af3fa314b98cf1aca
+Signed-off-by: sub77 <sub77@ymail.com>
+---
+ core/dumpvar.mk | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/core/dumpvar.mk b/core/dumpvar.mk
+index 1bd4777..2d739fa 100644
+--- a/core/dumpvar.mk
++++ b/core/dumpvar.mk
+@@ -1,6 +1,7 @@
+ 
+ # List of variables we want to print in the build banner.
+ print_build_config_vars := \
++  TW_DEVICE_SPECIFIC_VERSION \
+   PLATFORM_VERSION_CODENAME \
+   PLATFORM_VERSION \
+   TARGET_PRODUCT \
+-- 
+2.1.4
+

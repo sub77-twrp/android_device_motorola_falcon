@@ -1,3 +1,6 @@
+# TWRP Versioning
+TW_DEVICE_SPECIFIC_VERSION := 3.0.2-10
+
 PLATFORM_PATH := device/motorola/falcon
 
 # Include path
@@ -28,15 +31,15 @@ TARGET_BOARD_INFO_FILE ?= $(PLATFORM_PATH)/board-info.txt
 # Kernel
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_CMDLINE := androidboot.bootdevice=msm_sdcc.1 androidboot.hardware=qcom vmalloc=400M utags.blkdev=/dev/block/platform/msm_sdcc.1/by-name/utags
-#BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 BOARD_CUSTOM_BOOTIMG_MK := device/motorola/falcon/mkbootimg.mk
 TARGET_KERNEL_ARCH := arm
-TARGET_KERNEL_CONFIG := falcon_defconfig
-TARGET_KERNEL_SOURCE := kernel/motorola/msm8226
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
+#TARGET_KERNEL_CONFIG := falcon_defconfig
+#TARGET_KERNEL_SOURCE := kernel/motorola/msm8226
+TARGET_PREBUILT_KERNEL := device/motorola/falcon/zImage-dtb
 
 # Init
 TARGET_INCREASES_COLDBOOT_TIMEOUT := true
@@ -73,3 +76,4 @@ TW_EXCLUDE_SUPERSU := true
 BOARD_SUPPRESS_SECURE_ERASE := true
 RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_NO_REAL_SDCARD := true
+TW_INCLUDE_NTFS_3G := true

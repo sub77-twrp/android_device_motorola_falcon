@@ -26,13 +26,16 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/omni/config/common.mk)
 
-PRODUCT_PACKAGES += \
-    charger_res_images \
-    charger
+PRODUCT_PACKAGES += detect-gpe
+PRODUCT_PACKAGES += charger_res_images charger
+
+PRODUCT_COPY_FILES += \
+    bionic/libc/zoneinfo/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
 
 PRODUCT_COPY_FILES += \
     device/motorola/falcon/recovery/root/etc/gpe-twrp.fstab:recovery/root/etc/gpe-twrp.fstab \
-    device/motorola/falcon/recovery/root/etc/twrp.fstab:recovery/root/etc/twrp.fstab
+    device/motorola/falcon/recovery/root/etc/twrp.fstab:recovery/root/etc/twrp.fstab \
+    device/motorola/falcon/recovery/root/init.recovery.qcom.rc:recovery/root/init.recovery.qcom.rc
 
 PRODUCT_NAME := omni_falcon
 PRODUCT_DEVICE := falcon

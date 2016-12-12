@@ -1,14 +1,4 @@
 on init
-    mkdir /firmware
-    mkdir /vendor
-    mkdir /vendor/firmware
-    mkdir /vendor/firmware/keymaster
-    symlink /firmware/image/keymaster.b00 /vendor/firmware/keymaster/keymaster.b00
-    symlink /firmware/image/keymaster.b01 /vendor/firmware/keymaster/keymaster.b01
-    symlink /firmware/image/keymaster.b02 /vendor/firmware/keymaster/keymaster.b02
-    symlink /firmware/image/keymaster.b03 /vendor/firmware/keymaster/keymaster.b03
-    symlink /firmware/image/keymaster.mdt /vendor/firmware/keymaster/keymaster.mdt
-
     # Detect GPE and swap fstab
     wait /dev/block/platform/msm_sdcc.1/by-name/userdata
     exec /sbin/detect-gpe
