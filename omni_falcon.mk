@@ -27,7 +27,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 $(call inherit-product, vendor/omni/config/common.mk)
 
 PRODUCT_PACKAGES += \
-    detect-gpe
+    detect-gpe \
+    charger_res_images charger
 
 PRODUCT_NAME := omni_falcon
 PRODUCT_DEVICE := falcon
