@@ -15,6 +15,7 @@
 #
 
 LZMA_BIN := $(shell which lzma)
+FLASH_IMAGE_IMG := twrp-$(TW_DEVICE_SPECIFIC_VERSION)_$(TARGET_DEVICE)_$(shell date -u +%Y%m%d-%H%M).img
 
 $(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) \
 		$(recovery_uncompressed_ramdisk) \
@@ -25,3 +26,5 @@ $(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) \
 	$(hide) $(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) $(BOARD_MKBOOTIMG_ARGS) --output $@
 	$(hide) $(call assert-max-image-size,$@,$(BOARD_RECOVERYIMAGE_PARTITION_SIZE))
 	@echo -e ${PRT_IMG}"Made recovery image: $@"${CL_RST}
+	$(hide) cp $(PRODUCT_OUT)/recovery.img $(PRODUCT_OUT)/$(FLASH_IMAGE_IMG)
+	@echo -e ${PRT_IMG}"----- Made recovery image: $(PRODUCT_OUT)/$(FLASH_IMAGE_IMG) --------"${CL_RST}
